@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.library</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <app data-string="Library" id="library" string="Library" name="library" groups="library.library_group_manager">
+                        <block title=" Library Management" id="maximum_no_of_days_settings" groups="library.library_group_manager">
+                            <setting string="Maximum no of Borrowing Days">
+                                <div>
+                                    <span>Send an alert </span>
+                                    <field name="maximum_no_of_days" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                    <span> days before the end date</span>
+                                </div>
+                            </setting>
+                            <setting string="Remainder days before a book is due">
+                                <div>
+                                    <span>Send an alert </span>
+                                    <field name="remainder_days" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                    <span> days before the end date</span>
+                                </div>
+                            </setting>
+                            <setting string="Penalty charged for each hour">
+                                <div>
+                                    <span> penalty amount for per hour </span>
+                                    <field name="penalty_per_hour" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                </div>
+                            </setting>
+                            <setting string="Maximum books one can borrow">
+                                <div>
+                                    <span>Maximum books one can borrow</span>
+                                    <field name="maximum_books" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                </div>
+                            </setting>
+                            <setting string="Maximum borrowing limit">
+                                <div>
+                                    <span>Maximum borrowing limit</span>
+                                    <field name="borrow_limit" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                </div>
+                            </setting>
+                            <setting string="Maximum no of late returns">
+                                <div>
+                                    <span>Maximum no of late returns </span>
+                                    <field name="late_returns_maximum" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                </div>
+                            </setting>
+                        </block>
+                    </app>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="library_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'module' : 'library', 'bin_size': False}</field>
+        </record>
+      </data>
+
+</odoo>

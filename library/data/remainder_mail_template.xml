@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="email_template_reminder_days" model="mail.template">
+        <field name="name"> Remainder to Members Before Due date of Book Return</field>
+        <field name="model_id"  ref="model_checkouts"/>
+        <field name="subject">Remainder Before Due date</field>
+        <field name="email_from">sreyasaju12345@gmail.com</field>
+        <field name="email_to">sreyasaju12345@gmail.com</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+              <p>Dear,</p>
+              <p>Books which were recently got checkout are reaching their Due date .<br/>
+              Set penality records for those borrowers if they do not return on or before reaching their Due date.<br/></p>
+              <p>Best regards,</p>
+              <p>Odoo S.A.</p>
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="library_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">books</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <record id="book_list_view" model="ir.ui.view">
+        <field name="name">books.list</field>
+        <field name="model">books</field>
+        <field name="arch" type="xml">
+            <list string="books" decoration-danger="status == 'unavailable'" decoration-success="status == 'available'"
+                  decoration-warning="status == 'coming soon'">
+                <field name="isbn"/>
+                <field name="book_name"/>
+                <field name="authors_id"/>
+                <field name="status"/>
+                <field name="genres_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="books_view_form" model="ir.ui.view">
+        <field name="name">books.form</field>
+        <field name="model">books</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <field name="status" widget="statusbar" clickable="True" statusbar_visible="available,unavailable,coming soon"/>
+
+                </header>
+                <sheet>
+                    <group>
+                    <group>
+                        <field name="isbn"/>
+
+                    </group>
+
+                    <group>
+                       <field name="image_1920" widget="contact_image" position="after"/>
+
+                    </group>
+<!--                    <group>-->
+<!--                       <field name="language"/>-->
+
+<!--                    </group>-->
+
+                    </group>
+                    <group>
+                        <field name="prd_id"/>
+                    </group>
+
+                    <group>
+                        <field name="book_name"/>
+                    </group>
+                    <group>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="authors_id"/>
+                        </group>
+                        <group>
+                            <field name="genres_id"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="publishers_id"/>
+                    </group>
+                    <group>
+                        <field name="publication_year_id"/>
+                    </group>
+<!--                    <group>-->
+<!--                        <field name="image"/>-->
+<!--                    </group>-->
+                    <group>
+                        <group>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="cost"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="other info">
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="books_view_search" model="ir.ui.view">
+        <field name="name">books.search</field>
+        <field name="model">books</field>
+        <field name="arch" type="xml">
+            <search string="books">
+                <field name="book_name" string="Title"/>
+                <field name="authors_id" string="Authors"/>
+                <field name="genres_id" string="Genres"/>
+                <field name="isbn" string="ISBN"/>
+                <field name="tag_ids" string="Tags"/>
+                <field name="authors_id" string="Authors" context="{'group_by':'authors_id' ,'residual_visible':True}"/>
+            </search>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="checkout_line_view_list" model="ir.ui.view">
+        <field name="name">checkout.line.list</field>
+        <field name="model">checkout.line</field>
+        <field name="arch" type="xml">
+                <list string="checkout line" editable="bottom">
+                        <field name="borrowed_book_id"/>
+                        <field name="price"/>
+                </list>
+        </field>
+    </record>
+</odoo>

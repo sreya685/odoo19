@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="library_menu_root" name="library management" groups="library.library_group_manager,library.library_group_user">   </menuitem>
+
+        <menuitem id="library_book_menu_root" parent="library_menu_root" action="library_action"> </menuitem>
+        <menuitem id="library_book_menu" parent="library_book_menu_root" sequence="1" action="library_action"> </menuitem>
+        <menuitem id="library_authors_menu_root" parent="library_menu_root" action="authors_action"> </menuitem>
+        <menuitem id="library_publishers_menu_root" parent="library_menu_root" action="publishers_action"> </menuitem>
+        <menuitem id="library_genres_menu_root" parent="library_menu_root" action="genres_action"> </menuitem>
+        <menuitem id="library_checkouts_menu_root" parent="library_menu_root" action="library_checkouts_action"> </menuitem>
+        <menuitem id="library_tags_menu_root" parent="library_book_menu_root" action="tags_action"> </menuitem>
+        <menuitem id="library_configuration_menu_root" name="Configuration" parent="library_menu_root" sequence="50"/>
+        <menuitem id="library_config_settings_menu_root" parent="library_configuration_menu_root" action="library_config_settings_action"> </menuitem>
+        <menuitem id="library_configuration_menu_root" parent="library_menu_root" name="Configuration" > </menuitem>
+        <menuitem id="library_members_menu_root" parent="library_menu_root" name="Members" action="members_action"> </menuitem>
+        <menuitem id="library_report_menu_root" parent="library_menu_root" action="report_action" name="report" > </menuitem>
+        <menuitem id="library_report_submenu" parent="library_report_menu_root" name="book_borrow_report" action="action_report_wizard"> </menuitem>
+
+</odoo>

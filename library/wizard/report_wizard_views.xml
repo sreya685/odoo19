@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_report_wizard" model="ir.actions.act_window">
+        <field name="name">Book Borrow Report</field>
+        <field name="res_model">report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_report_wizard"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+    <record id="view_report_wizard" model="ir.ui.view">
+        <field name="name">report.wizard.form</field>
+        <field name="model">report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Book Borrow Report">
+               <group>
+<!--                <group>-->
+<!--                    <field name="report_ids"/>-->
+<!--                </group>-->
+<!--                <group>-->
+<!--                    <field name="reference_id"/>-->
+<!--                </group>-->
+                </group>
+                <group>
+                <group>
+                    <field name="book_name"/>
+                </group>
+                <group>
+                    <field name="author_name"/>
+                </group>
+                </group>
+                <group>
+                <group>
+                    <field name="checkout_date"/>
+                </group>
+                <group>
+                    <field name="return_date"/>
+                </group>
+                </group>
+                <group>
+                    <field name="genres_type"/>
+                </group>
+
+
+
+
+
+                <button name="print_pdf_button" type="object" string="PRINT PDF"/>
+            </form>
+        </field>
+    </record>
+
+<!---->
+</odoo>

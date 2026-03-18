@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="library_checkouts_action" model="ir.actions.act_window">
+        <field name="name">Checkouts</field>
+        <field name="res_model">checkouts</field>
+        <field name="view_mode">list,form,kanban</field>
+
+    </record>
+    <record id="checkouts_view_form" model="ir.ui.view">
+        <field name="name">checkouts.form</field>
+        <field name="model">checkouts</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <header>
+                        <button name="create_invoice" type="object" class="oe_highlight" string="CREATE INVOICE" invisible="status != 'returned'"/>
+                        <button name="checkout_book" type="object" class='oe_highlight' string="CONFIRM" invisible="status!='draft'"/>
+                        <button name="return_book" type="object" class='oe_highlight' string="RETURN" invisible="status=='draft' or status=='returned'" />
+                        <button name="cancel_book" type="object" class='oe_highlight' string="CANCEL"/>
+                        <field name="status" widget="statusbar" statusbar_visible="draft,checkout,returned,overdue"/>
+
+
+                </header>
+                <sheet>
+                      <div name="button_box" class="oe_button_box">
+                            <button name="action_invoice_view" class="oe_stat_button" icon="fa-bars" type="object" >
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_text"> Payment</span>
+                                    </div>
+                            </button>
+                      </div>
+                    <div>
+                         <widget name="web_ribbon" title="Paid" invisible="pay_state != 'paid' "/>
+                    </div>
+                    <group>
+                        <field name="check" readonly="status != 'draft'"/>
+                    </group>
+
+                    <group>
+                        <field name="borrower_id" readonly="status != 'draft'" options="{'no_create': 'True'}"/>
+                    </group>
+                    <group>
+                        <field name="customer_email" />
+                    </group>
+                    <group>
+                        <field name="checkout_count"/>
+                    </group>
+                    <group>
+                        <field name="borrower_phone" readonly="status != 'draft'"/>
+                    </group>
+
+                    <group>
+                        <field name="checkout_date" readonly="status != 'draft'"/>
+<!--                        <field name="pay_state" optional="hide"/>-->
+
+                    </group>
+
+                    <group>
+                        <field name="due_date" readonly="status != 'draft'"/>
+                    </group>
+
+
+
+                    <group>
+                        <field name="return_date" invisible="status!='returned'" readonly="status != 'draft' and status != 'returned'"/>
+                    </group>
+                     <group>
+                        <field name="penalties" string="penalty" readonly="status != 'draft'"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Suggestions">
+                                  <field name="checkouts_line_ids" editable="bottom"  readonly="status != 'draft'"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="checkouts_view_list" model="ir.ui.view">
+        <field name="name">checkouts.list</field>
+        <field name="model">checkouts</field>
+        <field name="arch" type="xml">
+                <list string="'checkouts">
+                        <field name="check"/>
+                        <field name="borrower_id"/>
+                        <field name="borrowed_book_name"/>
+                        <field name="checkout_date"/>
+                        <field name="return_date" invisible="status!='returned'"/>
+                        <field name="penalties" string="penalty"/>
+                        <field name="status"/>
+                        <field name="late_status" string="Late status"/>
+                </list>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+       <record id="ir_sequence_isbn_reference" model="ir.sequence">
+           <field name="name">ISBN</field>
+           <field name="code">books</field>
+           <field name="prefix">ISBN</field>
+           <field name="padding">5</field>
+           <field name="number_next">1</field>
+           <field name="number_increment">1</field>
+           <field name="company_id" eval="False"/>
+       </record>
+   </data>
+     <data noupdate="1">
+       <record id="ir_sequence_checkout_reference" model="ir.sequence">
+           <field name="name">CHECKOUT ID</field>
+           <field name="code">checkouts</field>
+           <field name="prefix">CHK</field>
+           <field name="padding">5</field>
+           <field name="number_next">1</field>
+           <field name="number_increment">1</field>
+           <field name="company_id" eval="False"/>
+       </record>
+   </data>
+</odoo>
