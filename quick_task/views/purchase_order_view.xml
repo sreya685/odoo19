@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+<!--               <header>-->
+                 <div name="button_box" class="oe_button_box" position="inside">
+                     <button name="stat_po_view" type="object" class="oe_stat_button" icon="fa-check" >
+
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_text"> Task</span>
+                                    </div>
+                            </button>
+                      </div>
+<!--            </header>-->
+        </field>
+     </record>
+</odoo>
