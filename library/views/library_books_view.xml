@@ -42,10 +42,10 @@
                        <field name="image_1920" widget="contact_image" position="after"/>
 
                     </group>
-<!--                    <group>-->
-<!--                       <field name="language"/>-->
+                    <group>
+                       <field name="language"/>
 
-<!--                    </group>-->
+                    </group>
 
                     </group>
                     <group>

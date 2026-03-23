@@ -8,10 +8,8 @@ class ReportlibraryForm_Library_Report(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         # docs = self.env['checkouts'].browse(docids)
-        # print(docids)
-        # print(docs)
+        # print(self)
         print('data :',data)
-        # print(data)
         return {
             # 'doc_ids': docids,
             # 'doc_model': 'checkouts',

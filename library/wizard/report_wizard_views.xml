@@ -14,12 +14,10 @@
         <field name="arch" type="xml">
             <form string="Book Borrow Report">
                <group>
-<!--                <group>-->
-<!--                    <field name="report_ids"/>-->
-<!--                </group>-->
-<!--                <group>-->
-<!--                    <field name="reference_id"/>-->
-<!--                </group>-->
+                <group>
+                    <field name="mem_id"/>
+                </group>
+
                 </group>
                 <group>
                 <group>
@@ -40,12 +38,19 @@
                 <group>
                     <field name="genres_type"/>
                 </group>
+                <group>
+                    <field name="sort_by"/>
+                </group>
+                <group>
+                    <field name="order" invisible="sort_by not in ['checkout_date','due date'] "/>
+                </group>
 
 
 
-
-
-                <button name="print_pdf_button" type="object" string="PRINT PDF"/>
+                <footer>
+                <button name="print_pdf_button" class="oe_highlight" type="object" string="Print PDF"/>
+                    <button special="cancel" class="oe_highlight" data-hotkey="x" string="Discard"/>
+                </footer>
             </form>
         </field>
     </record>

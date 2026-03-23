@@ -23,7 +23,7 @@ class Books(models.Model):
     publication_year_id = fields.Integer(related='publishers_id.publication_year',string='Publication Year')
     prd_id = fields.Many2one('product.product')
     image_1920 = fields.Image(string='Image',optional=True)
-     # language = fields.Char(string='language')
+    language = fields.Char(string='language')
 
 
 

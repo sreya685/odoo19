@@ -2,56 +2,107 @@
 <odoo>
     <template id="form_library_report">
         <t t-call="web.html_container">
-            <!--            <t t-foreach="data['report']" t-as="o">-->
+
 
             <t t-call="web.external_layout">
-                <!--                <t t-foreach="data['report']" t-as="o">-->
+                <t t-if="date['book_name']">
+                    book name:
+                    <span t-out="date['book_name'][1]"/>
+                    <br></br>
+                </t>
+
+                <t t-if="date['checkout_date']">
+                    checkout date:
+                    <span t-out="date['checkout_date']"/>
+                    <br></br>
+                </t>
+
+                <t t-if="date['return_date']">
+                    return date:
+                    <span t-out="date['return_date']"/>
+                    <br></br>
+                </t>
+
+                <t t-if="date['genres_type']">
+                    genre types:
+                    <span t-out="date['genres_type'][1]"/>
+                    <br></br>
+
+                </t>
+
+                <t t-if="date['author_name']">
+                    author name:
+                    <span t-out="date['author_name'][1]"/>
+                    <br></br>
+
+                </t>
+                <br></br>
+
+
+
+
 
                 <h1>Checkouts</h1>
                 <div class="page">
-<!--                    <t t-foreach="data['report']" t-as="o">-->
 
-                        <table>
+
+
+                      <br>
+
+                      </br>
+                      <table cellpadding="1" cellspacing="1" border="0" style="width:100%; background:#fbf7fc; border-radius:16px;">
                             <thead>
-                                <th>Checkout ID</th>
-                                <th>Book Name</th>
-                                <th>Author Name</th>
-                                <th>Checkout Date</th>
-                                <th>Return Date</th>
-                                <th>Genre Type</th>
-
+                                <tr>
+                                <th colspan="3" style="padding:1;">Checkout ID</th>
+                                <th t-if="date['book_name'] == False" colspan="3" style="padding:1;">Book Name</th>
+                                <th t-if="date['author_name'] == False" colspan="3" style="padding:1;">Author Name</th>
+                                <th t-if="date['checkout_date'] == False" colspan="3" style="padding:1;">Checkout Date</th>
+                                <th t-if="date['return_date'] == False" colspan="3" style="padding:1;">Return Date</th>
+                                <th t-if="date['genres_type'] == False" colspan="3" style="padding:1;">Genre Type</th>
+                                <th colspan="3" style="padding:1;">Language</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <t t-foreach="data['report']" t-as="o">
                                     <tr>
-                                        <td>
+                                        <td colspan="3" style="padding:1; text-align: center;">
+
                                             <span t-out="o['check']"/>
                                         </td>
-                                        <td>
-                                            <span t-out="o['book_name']"/>
-                                        </td>
-                                        <td>
-                                            <span t-out="o['author_name']"/>
-                                        </td>
-                                        <td>
-                                            <span t-out="o['checkout_date']"/>
-                                        </td>
-                                        <td>
-                                            <span t-out="o['return_date']"/>
-                                        </td>
-                                        <td>
-                                            <span t-out="o['genre_types']"/>
+
+
+                                        <t t-if="date['book_name'] == False">
+                                       <td colspan="3" style="padding:1; text-align: center;">
+                                           <t t-out="o['book_name']"/> </td></t>
+                                          <t t-if="date['author_name'] == False" >
+                                         <td colspan="3" style="padding:1;  text-align: center;">
+                                            <t  t-out="o['author_name']"/>
+                                        </td></t>
+                                        <t t-if="date['checkout_date'] == False">
+                                         <td colspan="3" style="padding:1;  text-align: center;">
+                                            <t  t-out="o['checkout_date']"/>
+                                        </td></t>
+                                        <t t-if="date['return_date'] == False" >
+                                        <td colspan="3" style="padding:1;  text-align: center;">
+                                            <t  t-out="o['return_date']"/>
+                                        </td></t>
+                                        <t t-if="date['genres_type'] == False" >
+                                       <td colspan="3" style="padding:1;  text-align: center;">
+                                            <t  t-out="o['genre_types']"/>
+                                        </td></t>
+                                        <td colspan="3" style="padding:1;  text-align: center;">
+                                            <span t-out="o['language']"/>
                                         </td>
                                     </tr>
+
                                 </t>
 
                             </tbody>
+
                         </table>
-<!--                    </t>-->
                 </div>
             </t>
         </t>
-        <!--            </t>-->
 
 
     </template>

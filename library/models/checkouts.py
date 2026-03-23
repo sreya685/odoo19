@@ -146,7 +146,7 @@ class Checkouts(models.Model):
                 ('status','!=','returned')
 
             ])
-            if overdue_books >= 1 :
+            if overdue_books > 1 :
                 raise ValidationError('you have overdue books to be returned')
             record.status = 'checkout'
             record.checkouts_line_ids.mapped('borrowed_book_id').write({'status': 'unavailable'})
