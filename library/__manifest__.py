@@ -24,6 +24,8 @@
        'views/account_move_view.xml',
        'wizard/recommendation_view.xml',
        'wizard/report_wizard_views.xml',
+       'wizard/xlsx_report_wizard_view.xml',
+       'static/src/js/action_manager.js',
        'views/library_report.xml',
        'views/report_views.xml',
        'views/members_view.xml',

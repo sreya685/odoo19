@@ -31,9 +31,9 @@ class ReportWizard(models.TransientModel):
                   """
 
         if self.checkout_date :
-            query += """ and ch.checkout_date >= '%s' """%(self.checkout_date)
+            query += """ and date(ch.checkout_date) >= date '%s' """%(self.checkout_date)
         if self.return_date :
-            query += """ and ch.return_date <= '%s' """%(self.return_date)
+            query += """ and date(ch.return_date) <= date '%s' """%(self.return_date)
         if self.genres_type :
             query += """ and gn.id = '%s' """%(self.genres_type.id)
         if self.author_name :

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--Form View For Wizard-->
+    <record id="xlsx_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">xlsx.report.wizard.view.form</field>
+        <field name="model">xlsx.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Book Borrow XLSX Report">
+
+                <footer>
+                    <button name="action_print_xlsx" string="Print"
+                            type="object" class="btn-primary"/>
+                    <button string="CANCEL" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <!-- Action -->
+    <record id="xlsx_report_wizard_action"
+            model="ir.actions.act_window">
+        <field name="name">Book borrow XLSX Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">xlsx.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="xlsx_report_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
+
