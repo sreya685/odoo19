@@ -8,8 +8,7 @@
         'mail',
         'product',
         'account',
-
-
+         'web',
     ],
 
     'data':[
@@ -25,7 +24,6 @@
        'wizard/recommendation_view.xml',
        'wizard/report_wizard_views.xml',
        'wizard/xlsx_report_wizard_view.xml',
-       'static/src/js/action_manager.js',
        'views/library_report.xml',
        'views/report_views.xml',
        'views/members_view.xml',
@@ -40,6 +38,12 @@
        'views/book_menu.xml'
 
 ],
+    'assets': {
+        'web.assets_backend': [
+            'library/static/src/js/action_manager.js',
+
+        ]
+    },
     'installable':True,
     'application': True
 

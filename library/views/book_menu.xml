@@ -15,6 +15,6 @@
         <menuitem id="library_members_menu_root" parent="library_menu_root" name="Members" action="members_action"> </menuitem>
         <menuitem id="library_report_menu_root" parent="library_menu_root" action="report_action" name="report" > </menuitem>
         <menuitem id="library_report_submenu" parent="library_report_menu_root" name="book borrow PDF report" action="action_report_wizard"> </menuitem>
-<!--        <menuitem id="library_report_submenu_s" parent="library_report_menu_root" name="book borrow XLSX report" action="xlsx_report_wizard_action"> </menuitem>-->
+        <menuitem id="library_report_submenu_s" parent="library_report_menu_root" name="book borrow XLSX report" action="xlsx_report_wizard_action"> </menuitem>
 
 </odoo>

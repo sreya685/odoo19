@@ -6,7 +6,37 @@
         <field name="model">xlsx.report.wizard</field>
         <field name="arch" type="xml">
             <form string="Book Borrow XLSX Report">
+                  <group>
+                <group>
+                    <field name="mem_id"/>
+                </group>
 
+                </group>
+                <group>
+                <group>
+                    <field name="book_name"/>
+                </group>
+                <group>
+                    <field name="author_name"/>
+                </group>
+                </group>
+                <group>
+                <group>
+                    <field name="checkout_date"/>
+                </group>
+                <group>
+                    <field name="return_date"/>
+                </group>
+                </group>
+                <group>
+                    <field name="genres_type"/>
+                </group>
+                <group>
+                    <field name="sort_by"/>
+                </group>
+                <group>
+                    <field name="order" invisible="sort_by not in ['checkout_date','return_date'] "/>
+                </group>
                 <footer>
                     <button name="action_print_xlsx" string="Print"
                             type="object" class="btn-primary"/>
