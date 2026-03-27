@@ -2,6 +2,6 @@
 <odoo>
         <menuitem id="advanced_root" name="COMMISSION" />
        <menuitem id="crm_commission_root"  parent="advanced_root"  action="crm_commission_action"/>
-       <menuitem id="rev_commission_root"  parent="advanced_root"  action="revenue_commission_action"/>
+<!--       <menuitem id="rev_commission_root"  parent="advanced_root"  action="revenue_commission_action"/>-->
 
 </odoo>

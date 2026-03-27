@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+      <menuitem id="mrp_mrp_root" name="MRP PRODUCTION" />
+       <menuitem id="mrp_p_e_root"  parent="mrp_mrp_root"  action="mrp_production_action"/>
+       <menuitem id="mrp_p_m_l_root"  parent="mrp_mrp_root"  action="mrp_production_material_action"/>
+
+</odoo>

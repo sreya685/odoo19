@@ -33,9 +33,9 @@
                         <group>
                            <field name="mode" invisible="type != 'revenue_wise'"/>
                        </group>
-                       <group>
-                           <field name="sales_team_target"/>
-                       </group>
+<!--                       <group>-->
+<!--                           <field name="sales_team_target"/>-->
+<!--                       </group>-->
                        <group>
                            <field name="commission_mode" invisible="type != 'revenue_wise'"/>
                        </group>

@@ -10,7 +10,7 @@
         <field name="model">revenue.commission</field>
         <field name="arch" type="xml">
             <list editable="bottom">
-                <field name="commission_id"/>
+                <field name="commission"/>
 <!--                <field name="commission"/>-->
                 <field name="from_amount"/>
                 <field name="to_amount"/>
