@@ -23,15 +23,7 @@ class CRMCommission(models.Model):
     commission_mode = fields.One2many('revenue.commission','commission_id')
     commission_rewarded = fields.Integer(string='Commission')
 
-    # @api.onchange('from_date','to_date')
-    # def compute_team_target(self):
-    #     sales_t_t = self.env['sale.order'].search([
-    #       ('team_id','=','sales'),
-    #         ('state','=','sale')
-    #   ])
-    #     if sales_t_t:
-    #         s = sum(sales_t_t.mapped('amount_total'))
-    #         self.sales_team_target = s
+
 
 
 

@@ -30,10 +30,13 @@ class SaleOrder(models.Model):
                  for line in plan.commission_mode:
                      b=0
                      bb=0
-                     if amount >= line.to_amount:
-                         amount = amount - b
-                         b = amount - line.to_amount
-                         bb = b * (line.rate)/100
+                     if amount > line.from_amount:
+
+                          b = min(amount,line.to_amount)
+                          if b == amount:
+                             b - (line.from_amount)
+
+                          bb = b * (line.rate)/100
                  self.commission_amt = bb
 
 
