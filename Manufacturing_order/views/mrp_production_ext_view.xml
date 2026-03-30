@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+       <record id="mrp_production_action" model="ir.actions.act_window">
+        <field name="name"> MRP Production </field>
+        <field name="res_model">mrp.production.ext</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+      <record id="mrp_production_view_form" model="ir.ui.view">
+        <field name="name">mrp.production.ext.form</field>
+        <field name="model">mrp.production.ext</field>
+        <field name="arch" type="xml">
+            <form>
+
+                   <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in progress,done,cancelled"/>
+                        <button name="button_confirmed" type="object" string="CONFIRM" invisible="state not in ['draft','done']"/>
+                        <button name="start_production" type="object" string="START PRODUCTION" invisible="state != 'confirmed'"/>
+                       <button name="partial_production" type="object" string="PARTIAL PRODUCTION " invisible="state != 'confirmed'"/>
+                        <button name="button_consumed_qty" type="object" string="CONSUME MATERIALS" invisible="state != 'in progress'"/>
+                        <button name="button_done" type="object" string="MARK AS DONE " invisible="state != 'in progress'"/>
+
+
+
+
+                   </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                            <button name="material_view" class="oe_stat_button" icon="fa-bars" type="object" >
+                                  <field name="material_count" widget="statinfo" string=" "/>
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_text">   Materials</span>
+                                    </div>
+                            </button>
+                      </div>
+
+                    <group>
+                            <field name="mrp_name"/>
+                    </group>
+                    <group>
+                        <field name="product_id"/>
+                    </group>
+                    <group>
+                        <field name="bom_id"/>
+                        </group>
+                    <group>
+                        <field name="quantity"/>
+                        </group>
+                    <group>
+                        <field name="planned_date"/>
+
+                    </group>
+                    <group>
+                        <field name="produced_qty"/>
+                    </group>
+                    <group>
+                        <field name="total_consumed"/>
+                    </group>
+                    <group>
+                        <field name="remaining_material"/>
+                    </group>
+                    <group>
+                        <field name="is_material_available"/>
+                    </group>
+                    <group>
+                        <field name ="material_line_ids" readonly="state != 'draft'"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+      </record>
+</odoo>
