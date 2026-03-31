@@ -13,7 +13,7 @@
 
                    <header>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in progress,done,cancelled"/>
-                        <button name="button_confirmed" type="object" string="CONFIRM" invisible="state not in ['draft','done']"/>
+                        <button name="button_confirmed" type="object" string="CONFIRM" invisible="state not in ['draft']"/>
                         <button name="start_production" type="object" string="START PRODUCTION" invisible="state != 'confirmed'"/>
                        <button name="partial_production" type="object" string="PARTIAL PRODUCTION " invisible="state != 'confirmed'"/>
                         <button name="button_consumed_qty" type="object" string="CONSUME MATERIALS" invisible="state != 'in progress'"/>

@@ -16,7 +16,7 @@
                         <field name="required_qty"/>
                         <field name="available_qty"/>
                         <field name="consumed_qty"/>
-                        <field name="bom_line_qty"/>
+                        <field name="bom_line_qty" column_invisible="True" />
                 </list>
 
         </field>

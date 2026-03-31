@@ -28,27 +28,31 @@ class MrpProductionExt(models.Model):
     def create(self, vals):
         if vals.get('mrp_name', _('New')) == _('New'):
             vals['mrp_name'] = self.env['ir.sequence'].next_by_code('mrp.production.ext') or _('New')
-        res = super().create(vals)
-        n = vals.get('product_id')
-        # nn = [vals.get('material_line_ids.consumed_qty')]
-        # print('--------------',nn)
-        if self.state == 'done':
+            # n=vals.get('product_id')
+            # # for record in self:
+            #     # if record.state == 'done':
+            # x =   self.env['product.product'].write({
+            #                 'name': n,
+            #                 'type': 'consu',
+            #                 'qty_available': 2,
 
-            x = self.env['product.product'].create({
-                'name': n,
-                'type': 'consu',
+#                         })
+#             vals['product_id'] = x.id
 
-            })
-            vals['product_id'] = x.id
 
-        return res
-
+        return    super().create(vals)
 
     def button_confirmed(self):
 
         if self.bom_id and self.quantity > 0:
             # if self.is_material_available == True:
                 self.state = 'confirmed'
+        for record in self:
+            if record.material_line_ids:
+                for line in record.material_line_ids:
+                   if line.product_id.qty_available == 0 or line.required_qty > line.available_qty:
+
+                         raise ValidationError('please update stock qty')
 
 
     @api.onchange('product_id','bom_id','quantity')
@@ -97,6 +101,7 @@ class MrpProductionExt(models.Model):
                          line.consumed_qty = line.required_qty
 
 
+
     @api.constrains('bom_id')
     def check_bom(self):
         if not self.bom_id:
@@ -116,7 +121,17 @@ class MrpProductionExt(models.Model):
                 for line in record.material_line_ids:
                     if line.required_qty >= line.consumed_qty:
                           record.state = 'done'
+            # n=[record.product_id.id]
+            # rslt  = super().create(n)
+            if record.state == 'done':
 
+                  k =   self.env['product.product'].search([
+                      ('name','=', record.product_id.name)
+
+                    ])
+                  k.qty_available += record.quantity
+            # vals['product_id'] = x.id
+            # return rslt
 
     @api.depends('material_line_ids.consumed_qty')
     def _compute_total_consumed(self):
@@ -167,11 +182,11 @@ class MrpProductionExt(models.Model):
                     record.is_material_available = True
 
 
-    @api.depends('state')
+    @api.depends('state','product_id')
     def _compute_prd_qty(self):
         for record in self:
           if record.state == 'done':
-            record.produced_qty += 1
+            record.produced_qty = record.product_id.qty_available
 
     def partial_production(self):
         for record in self:
@@ -179,13 +194,13 @@ class MrpProductionExt(models.Model):
             t=0
             for line in record.material_line_ids:
                 if line.required_qty > line.available_qty:
-                     t = line.required_qty - line.available_qty
+                     t = line.available_qty % line.bom_line_qty
                      e.append(t)
             print('IOIOIIUGUGUY',e)
 
             for l in range(len(e)):
                 for line in record.material_line_ids:
-                     if e[l] % line.bom_line_qty == 0 :
+                     if e[l] == line.bom_line_qty :
                          line.consumed_qty = line.available_qty
                          record.state ='in progress'
 
