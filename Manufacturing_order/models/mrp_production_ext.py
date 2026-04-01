@@ -2,6 +2,7 @@ from email.policy import default
 
 from odoo import api,fields,models,_,Command
 from odoo.exceptions import ValidationError
+from odoo.http import request
 
 
 class MrpProductionExt(models.Model):
@@ -24,6 +25,11 @@ class MrpProductionExt(models.Model):
     total_consumed = fields.Integer(compute='_compute_total_consumed')
     remaining_material = fields.Integer(compute='_compute_remaining_material',default=0)
     produced_qty = fields.Integer(compute='_compute_prd_qty',default=0,store=True)
+    remaining_qty = fields.Integer(compute='_compute_rem_qty',default=0,store=True)
+    backorder_id = fields.Many2one('mrp.production.ext')
+    # backorder_rem_qty = fields.Integer(compute='_compute_backorder_rem_',store=True,default=0)
+    # backorder_avail_qty = fields.Integer(compute='_compute_backorder_avail_qty',store=True,default=0)
+
 
     def create(self, vals):
         if vals.get('mrp_name', _('New')) == _('New'):
@@ -50,20 +56,19 @@ class MrpProductionExt(models.Model):
         for record in self:
             if record.material_line_ids:
                 for line in record.material_line_ids:
-                   if line.product_id.qty_available == 0 or line.required_qty > line.available_qty:
+                   if line.product_id.qty_available == 0 :
 
                          raise ValidationError('please update stock qty')
 
 
     @api.onchange('product_id','bom_id','quantity')
-    def onchange_bom_error(self):
+    def onchange_bom(self):
         for record in self:
             if record.material_line_ids:
                 record.material_line_ids = [Command.clear()]
 
             lines =[]
-            # if record.quantity <= 0:
-            #     raise ValidationError('Please enter a valid quantity')
+
             for line in record.bom_id.bom_line_ids:
                 lines.append(Command.create({
                     'product_id': line.product_id.id,
@@ -95,11 +100,21 @@ class MrpProductionExt(models.Model):
 
     def button_consumed_qty(self):
         for record in self:
+            consume=[]
             if record.material_line_ids:
-                for line in record.material_line_ids:
-                     if line.consumed_qty < line.required_qty:
-                         line.consumed_qty = line.required_qty
 
+                    for line in record.material_line_ids:
+                        if line.required_qty < line.available_qty:
+                            if line.consumed_qty < line.required_qty:
+                                line.consumed_qty = line.required_qty
+
+
+
+                        else:
+                            consume.append(int(line.available_qty / line.bom_line_qty))
+                            mini = min(consume)
+                            print(mini)
+                            line.consumed_qty = line.bom_line_qty * mini
 
 
     @api.constrains('bom_id')
@@ -121,8 +136,8 @@ class MrpProductionExt(models.Model):
                 for line in record.material_line_ids:
                     if line.required_qty >= line.consumed_qty:
                           record.state = 'done'
-            # n=[record.product_id.id]
-            # rslt  = super().create(n)
+
+
             if record.state == 'done':
 
                   k =   self.env['product.product'].search([
@@ -130,8 +145,7 @@ class MrpProductionExt(models.Model):
 
                     ])
                   k.qty_available += record.quantity
-            # vals['product_id'] = x.id
-            # return rslt
+
 
     @api.depends('material_line_ids.consumed_qty')
     def _compute_total_consumed(self):
@@ -151,11 +165,6 @@ class MrpProductionExt(models.Model):
                     t_remaining += line.required_qty
             record.remaining_material = t_remaining - record.total_consumed
 
-    # @api.onchange('remaining_material')
-    # def onchange_rem_material(self):
-    #     for record in self:
-    #         if record.remaining_material == 0 and record.state != 'draft':
-    #             record.state = 'done'
 
     @api.onchange('product_id')
     def onchange_product(self):
@@ -194,13 +203,60 @@ class MrpProductionExt(models.Model):
             t=0
             for line in record.material_line_ids:
                 if line.required_qty > line.available_qty:
-                     t = line.available_qty % line.bom_line_qty
+                     t = int(line.available_qty / line.bom_line_qty)
                      e.append(t)
             print('IOIOIIUGUGUY',e)
 
-            for l in range(len(e)):
-                for line in record.material_line_ids:
-                     if e[l] == line.bom_line_qty :
-                         line.consumed_qty = line.available_qty
-                         record.state ='in progress'
 
+            if e:
+
+                minimum = min(e)
+                record.quantity = minimum
+                record.state = 'in progress'
+                lines=[]
+                for line in record.material_line_ids:
+                    lines.append(Command.create({
+                    'product_id': line.product_id.id,
+                    'available_qty':line.available_qty,
+                    'required_qty' :line.required_qty
+
+                }))
+                n = self.env['mrp.production.ext'].create({
+                    'product_id': record.product_id.id,
+                    'bom_id': record.bom_id.id,
+                    'quantity': record.remaining_qty,
+                     'material_line_ids': lines
+
+                })
+                record.backorder_id = n.id
+
+
+                # for l in range(len(e)):
+                #     for line in record.material_line_ids:
+                #      if e[l] == line.bom_line_qty :
+                #          line.consumed_qty = line.available_qty
+                #          record.state ='in progress'
+
+    @api.depends('material_line_ids.required_qty','material_line_ids.available_qty')
+    def _compute_rem_qty(self):
+        for record in self:
+            if record.material_line_ids:
+                for line in record.material_line_ids:
+                    if line.required_qty > line.available_qty:
+                         record.remaining_qty = line.required_qty - line.available_qty
+    def backorder(self):
+                    return {
+                        'type': 'ir.actions.act_window',
+                        'name': 'backorder',
+                        'res_model': 'mrp.production.ext',
+                        'res_id': self.backorder_id.id,
+                        'view_mode': 'form',
+                        'domain': [('production_id', '=', self.id)]
+
+                    }
+    # @api.depends('quantity')
+    # def _compute_backorder_rem_(self):
+    #          if
+                     #   req  >     avai  >=   bom
+                     #   12     8     8        4        1
+                     #    3     2     2         1        1

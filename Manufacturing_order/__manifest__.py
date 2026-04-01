@@ -14,7 +14,7 @@
     'data/sequence.xml',
     'views/product_view.xml',
     'views/mrp_production_ext_view.xml',
-    'views/mrp_production_material_line_view.xml',
+    # 'views/mrp_production_material_line_view.xml',
     'views/menu.xml',
 ],
     'installable':True,
