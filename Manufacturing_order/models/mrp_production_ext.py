@@ -1,6 +1,7 @@
 from email.policy import default
 
 from odoo import api,fields,models,_,Command
+from odoo.addons.test_convert.tests.test_env import record
 from odoo.exceptions import ValidationError
 from odoo.http import request
 
@@ -25,33 +26,17 @@ class MrpProductionExt(models.Model):
     total_consumed = fields.Integer(compute='_compute_total_consumed')
     remaining_material = fields.Integer(compute='_compute_remaining_material',default=0)
     produced_qty = fields.Integer(compute='_compute_prd_qty',default=0,store=True)
-    remaining_qty = fields.Integer(compute='_compute_rem_qty',default=0,store=True)
+    # remaining_qty = fields.Integer(default=0,store=True)
     backorder_id = fields.Many2one('mrp.production.ext')
-    # backorder_rem_qty = fields.Integer(compute='_compute_backorder_rem_',store=True,default=0)
-    # backorder_avail_qty = fields.Integer(compute='_compute_backorder_avail_qty',store=True,default=0)
-
 
     def create(self, vals):
         if vals.get('mrp_name', _('New')) == _('New'):
             vals['mrp_name'] = self.env['ir.sequence'].next_by_code('mrp.production.ext') or _('New')
-            # n=vals.get('product_id')
-            # # for record in self:
-            #     # if record.state == 'done':
-            # x =   self.env['product.product'].write({
-            #                 'name': n,
-            #                 'type': 'consu',
-            #                 'qty_available': 2,
-
-#                         })
-#             vals['product_id'] = x.id
-
-
         return    super().create(vals)
 
     def button_confirmed(self):
 
         if self.bom_id and self.quantity > 0:
-            # if self.is_material_available == True:
                 self.state = 'confirmed'
         for record in self:
             if record.material_line_ids:
@@ -97,6 +82,19 @@ class MrpProductionExt(models.Model):
         if self.material_line_ids:
             self.state = 'in progress'
 
+            e = []
+            for record in self:
+                for line in record.material_line_ids:
+                    if line.required_qty > line.available_qty:
+                    #     t = int(line.available_qty / line.bom_line_qty)
+                    #     e.append(t)
+                    #
+                    #
+                    # minimum = min(e)
+                    # remaining_qty = record.quantity - minimum
+                    # print('fdg',remaining_qty)
+                    # if  remaining_qty * line.bom_line_qty > self.product_id.qty_available :
+                        raise ValidationError('please update stock qty')
 
     def button_consumed_qty(self):
         for record in self:
@@ -113,7 +111,7 @@ class MrpProductionExt(models.Model):
                         else:
                             consume.append(int(line.available_qty / line.bom_line_qty))
                             mini = min(consume)
-                            print(mini)
+                            # print(mini)
                             line.consumed_qty = line.bom_line_qty * mini
 
 
@@ -195,7 +193,7 @@ class MrpProductionExt(models.Model):
     def _compute_prd_qty(self):
         for record in self:
           if record.state == 'done':
-            record.produced_qty = record.product_id.qty_available
+             record.produced_qty = record.product_id.qty_available
 
     def partial_production(self):
         for record in self:
@@ -205,45 +203,35 @@ class MrpProductionExt(models.Model):
                 if line.required_qty > line.available_qty:
                      t = int(line.available_qty / line.bom_line_qty)
                      e.append(t)
-            print('IOIOIIUGUGUY',e)
 
 
             if e:
-
                 minimum = min(e)
+                remaining_qty = record.quantity - minimum
                 record.quantity = minimum
                 record.state = 'in progress'
-                lines=[]
-                for line in record.material_line_ids:
-                    lines.append(Command.create({
-                    'product_id': line.product_id.id,
-                    'available_qty':line.available_qty,
-                    'required_qty' :line.required_qty
 
-                }))
                 n = self.env['mrp.production.ext'].create({
                     'product_id': record.product_id.id,
                     'bom_id': record.bom_id.id,
-                    'quantity': record.remaining_qty,
-                     'material_line_ids': lines
+                    'quantity': remaining_qty,
+                     # 'material_line_ids': lines
 
                 })
+                n.onchange_bom()
                 record.backorder_id = n.id
 
 
-                # for l in range(len(e)):
-                #     for line in record.material_line_ids:
-                #      if e[l] == line.bom_line_qty :
-                #          line.consumed_qty = line.available_qty
-                #          record.state ='in progress'
 
-    @api.depends('material_line_ids.required_qty','material_line_ids.available_qty')
-    def _compute_rem_qty(self):
-        for record in self:
-            if record.material_line_ids:
-                for line in record.material_line_ids:
-                    if line.required_qty > line.available_qty:
-                         record.remaining_qty = line.required_qty - line.available_qty
+
+    # @api.depends('material_line_ids.required_qty','material_line_ids.available_qty')
+    # def _compute_rem_qty(self):
+    #     for record in self:
+    #         if record.material_line_ids:
+    #             for line in record.material_line_ids:
+    #                 if line.required_qty > line.available_qty:
+    #                      record.remaining_qty = line.required_qty - line.available_qty
+
     def backorder(self):
                     return {
                         'type': 'ir.actions.act_window',
@@ -254,9 +242,7 @@ class MrpProductionExt(models.Model):
                         'domain': [('production_id', '=', self.id)]
 
                     }
-    # @api.depends('quantity')
-    # def _compute_backorder_rem_(self):
-    #          if
+
                      #   req  >     avai  >=   bom
                      #   12     8     8        4        1
                      #    3     2     2         1        1
