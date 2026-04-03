@@ -5,11 +5,12 @@
     'license': 'LGPL-3',
     'depends':[
        'base',
-       'sale'
+       'product'
     ],
 
     'data':[
-     'views/sale_order_views.xml',
+      'views/product_product_views.xml',
+      'views/product_template_views.xml',
 ],
     'installable':True,
     'application': True
