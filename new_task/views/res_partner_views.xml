@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res_partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+
+                   <xpath expr="//notebook" position="inside">
+                <page
+                        id="delivery_info"
+                        string="Product Insights">
+                         <group>
+                        <field name="most_sold_product"/>
+                    </group>
+                    <group>
+                        <field name="total_sold_quantity"/>
+                    </group>
+                    <group>
+                        <field name="minimum_sales_price"/>
+                    </group>
+                    <group>
+                        <field name="maximum_sales_price"/>
+                    </group>
+                </page>
+                   </xpath>
+                 <xpath expr="//sheet" position="before">
+                        <div name="button_box" class="oe_button_box" position="inside">
+                     <button name="sale_order_count_view" type="object" class="oe_stat_button" icon="fa-check" >
+
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_text"> Sale Orders</span>
+                                    </div>
+                            </button>
+                      </div>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>
