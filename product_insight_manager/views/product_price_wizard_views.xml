@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_price_wizard" model="ir.actions.act_window">
+        <field name="name">Price Wizard</field>
+        <field name="res_model">product.price.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_product_price_wizard"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+    <record id="view_price_wizard" model="ir.ui.view">
+        <field name="name">product.price.wizard.form</field>
+        <field name="model">product.price.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Price Wizard">
+
+                <sheet>
+                    <group>
+                        <field name="new_price"/>
+                    </group>
+                    <group>
+                        <field name="product_product_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="product_same_price_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="product_vendors_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+                  <footer>
+                 <button name="button_confirm" type="object" class="oe_highlight" string="Confirm" />
+                    <button string="Discard" class="btn-secondary" special="cancel" data-hotkey="x" />
+                 </footer>
+
+
+            </form>
+        </field>
+    </record>
+</odoo>

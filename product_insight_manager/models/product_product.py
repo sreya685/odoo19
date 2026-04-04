@@ -21,3 +21,20 @@ class ProductProduct(models.Model):
                    record.price_category = 'Premium'
                 else:
                     record.price_category = 'Standard'
+            else:
+                record.discounted_price =0
+                record.price_category = False
+
+    def open_price_wizard(self):
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Price Wizard',
+            'res_model': 'product.price.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'active_id': self.id,
+
+            }
+        }

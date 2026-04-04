@@ -5,6 +5,7 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
+
                 <xpath expr="//notebook" position="inside">
                     <page string="Product Insights">
                 <group><field name="internal_remarks" string="internal remarks"/></group>
@@ -12,6 +13,10 @@
                 <group><field name="price_category" string="Price Category"/></group>
 
                     </page>
+                 </xpath>
+               <xpath expr="//sheet" position="before">
+                   <div>
+                       <group><button name="open_price_wizard" type="object" class="oe_highlight" string="Open Price Wizard" /></group></div>
             </xpath>
 
         </field>
