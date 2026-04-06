@@ -2,6 +2,7 @@
     'name': 'Library Management',
     'author':'library',
     'version': '1.0',
+    'sequence':1,
     'license': 'LGPL-3',
     'depends':[
         'base_setup',
@@ -20,6 +21,7 @@
        'data/automate_genres.xml',
        'data/sequence.xml',
        'reports/book_borrow_report.xml',
+       'views/donation_form.xml',
        'views/account_move_view.xml',
        'wizard/recommendation_view.xml',
        'wizard/report_wizard_views.xml',

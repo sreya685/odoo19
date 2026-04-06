@@ -78,8 +78,8 @@ class Members(models.Model):
             'name': 'Checkouts',
             'res_model': 'checkouts',
             'view_mode': 'list,form',
-            'domain': [('borrower_id', '=', self.id)],
-            'context': {'default_borrower_id': self.id}
+            'domain': [('borrower_id', '=', self.id)]
+
         }
 
 

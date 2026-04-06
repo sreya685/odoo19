@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="donation_form_template" name="Donation Form">
+            <t t-call="website.layout">
+                <section class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-5">
+                            <div class="card shadow rounded-3 border-0">
+                                <div class="card-body p-4">
+                                    <h3 class="mb-4 text-center">Donate Books</h3>
+                                    <form action="/website/customer/create" method="post">
+                                        <div class="mb-3">
+                                            <label class="form-label">Book Name</label>
+                                            <input type="text" name="book_name" required="required" class="form-control"/>
+                                        </div>
+
+
+
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Author Name</label>
+<!--                                                  <span t-field="authors_id.author_name"> </span>-->
+                                            <input type="text" name="author_name" class="form-control"/>
+                                        </div>
+
+
+
+
+<!--                                          <DropdownItem class="'o-dropdown-item-unstyled-button'">-->
+                                        <div>
+                                               <label class="form-label">Condition</label>
+                                                 <input type="radio" name="status" class="form-control"/>
+                                        </div>
+
+
+<!--                                         <DropdownItem closingMode="'none'">-->
+                                             <div>
+                                                 <label class="form-label">Add Product Image</label>
+<!--                                        <button class="floor-picture border-1 rounded position-relative text-center overflow-hidden d-flex flex-column align-items-center justify-content-center">-->
+<!--                                            <i class="fa fa-camera" role="img" aria-label="Picture" title="Picture"></i>-->
+<!--                                            File-->
+                                            <input type="file" name="image_1920" class="image-uploader" t-on-change="uploadImage" />
+<!--                                        </button>-->
+                                             </div>
+<!--                                    </DropdownItem>-->
+
+
+
+                                        <div class="mb-4">
+                                            <label class="form-label">Book Description</label>
+                                            <input type="text" name="description" class="form-control"/>
+                                        </div>
+
+
+
+
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </t>
+        </template>
+        <!-- Success Page -->
+        <template id="donation_success_template" name="Book Donation">
+            <t t-call="website.layout">
+                <div class="container">
+                    <h3>Book Donation Done Successfully!</h3>
+                </div>
+            </t>
+        </template>
+        <!-- Website Menu Record -->
+        <record id="menu_donation_form" model="website.menu">
+            <field name="name">Donation Form</field>
+            <field name="url">/website/customer/form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">60</field>
+        </record>
+    </data>
+</odoo>
