@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from email.policy import default
+
 from odoo import api,fields,models,_
 
 
@@ -24,8 +26,13 @@ class Books(models.Model):
     prd_id = fields.Many2one('product.product')
     image_1920 = fields.Image(string='Image',optional=True)
     language = fields.Char(string='language')
-
-
+    condition = fields.Selection(
+        string = 'condition',
+        selection= [('new','New'),('used','Used')],
+        default='new'
+    )
+    user_id = fields.Many2one('res.users',default=lambda self: self.env.user)
+    user_name = fields.Char(related='user_id.name')
 
      # to create sequence to isbn
     def create(self,vals):

@@ -59,6 +59,7 @@
                         <field name="tag_ids" widget="many2many_tags"/>
                     </group>
                     <group>
+                        <group> <field name="condition"/> </group>
                         <group>
                             <field name="authors_id"/>
                         </group>
@@ -73,9 +74,7 @@
                     <group>
                         <field name="publication_year_id"/>
                     </group>
-<!--                    <group>-->
-<!--                        <field name="image"/>-->
-<!--                    </group>-->
+
                     <group>
                         <group>
                             <field name="price"/>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_my_home_book_donation" name="Book Donation"
+         customize_show="True" inherit_id="portal.portal_my_home">
+   <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+       <t t-call="portal.portal_docs_entry">
+           <t t-set="title">Book Donation Details</t>
+           <t t-set="url" t-value="'/my/books'"/>
+<!--           <t t-set="placeholder_count" t-value="'loan_count'"/>-->
+       </t>
+   </xpath>
+    </template>
+<!--    <template id="portal_my_quotations" name="My Quotations">-->
+<!--        <t t-call="portal.portal_layout">-->
+<!--            <t t-set="breadcrumbs_searchbar" t-value="True"/>-->
+
+<!--            <t t-call="portal.portal_searchbar">-->
+<!--                <t t-set="title">Quotations</t>-->
+<!--            </t>-->
+<!--            <div t-if="not quotations" class="alert alert-warning" role="alert">-->
+<!--                There are currently no quotations for your account.-->
+<!--            </div>-->
+<!--            <t t-if="quotations" t-call="portal.portal_table">-->
+<!--                <thead>-->
+<!--                    <tr class="active">-->
+<!--                        <th>Quotation #</th>-->
+<!--                        <th class="text-end">Quotation Date</th>-->
+<!--                        <th class="text-end">Valid Until</th>-->
+<!--                        <th class="text-center"/>-->
+<!--                        <th class="text-end">Total</th>-->
+<!--                    </tr>-->
+<!--                </thead>-->
+<!--                <t t-foreach="quotations" t-as="quotation">-->
+<!--                    <tr>-->
+<!--                        <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>-->
+<!--                        <td class="text-end"><span t-field="quotation.date_order"/></td>-->
+<!--                        <td class="text-end"><span t-field="quotation.validity_date"/></td>-->
+<!--                    -->
+<!--                        <td class="text-end">-->
+<!--                            <span t-field="quotation.amount_total"/>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </template>-->
+
+</odoo>

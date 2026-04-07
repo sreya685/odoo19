@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="portal_page_template" name="Portal Page">
+            <t t-call="website.layout">
+                <section class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-5">
+                            <div class="card shadow rounded-3 border-0">
+                                <div class="card-body p-4">
+                                    <h3 class="mb-4 text-center">User Contributions</h3>
+                <form action="/website/portal/form" method="post">
+                 <table>
+
+                     <thead>
+                         <tr>
+                         <th>Book Name</th>
+                             <th></th>
+<!--                         <th>Author Name</th>-->
+                         <th>Description</th>
+                         <th>Customer</th>
+<!--                         <th>Image</th>-->
+                         </tr>
+                     </thead>
+                 <td t-foreach="books" t-as="book">
+
+                     <tbody>
+                         <tr>
+                             <td t-out="book['book_name']"/>
+                           <td></td>
+<!--                         <td t-out="book['authors_id.author_name']"/>-->
+                         <td t-out="book['description']"/>
+                         <td t-out="book['user_name']"/>
+                         </tr>
+<!--     <t t-esc="image"/>-->
+                     </tbody>
+
+                </td>
+
+                 </table>
+
+
+                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </t>
+        </template>
+        <record id="menu_portal_form" model="website.menu">
+            <field name="name">Portal Page</field>
+            <field name="url">/website/portal/form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">60</field>
+        </record>
+
+    </data>
+</odoo>

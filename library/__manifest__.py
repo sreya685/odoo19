@@ -10,6 +10,7 @@
         'product',
         'account',
          'web',
+        'website'
     ],
 
     'data':[
@@ -21,6 +22,7 @@
        'data/automate_genres.xml',
        'data/sequence.xml',
        'reports/book_borrow_report.xml',
+       'views/portal_page.xml',
        'views/donation_form.xml',
        'views/account_move_view.xml',
        'wizard/recommendation_view.xml',
