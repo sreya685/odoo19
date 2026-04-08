@@ -10,3 +10,4 @@ from . import checkout_line
 from . import members
 from . import account_move
 from . import reports
+# from . import book_image

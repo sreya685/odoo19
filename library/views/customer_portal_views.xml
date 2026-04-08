@@ -1,48 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="portal_my_home_book_donation" name="Book Donation"
-         customize_show="True" inherit_id="portal.portal_my_home">
-   <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-       <t t-call="portal.portal_docs_entry">
-           <t t-set="title">Book Donation Details</t>
-           <t t-set="url" t-value="'/my/books'"/>
-<!--           <t t-set="placeholder_count" t-value="'loan_count'"/>-->
-       </t>
-   </xpath>
+    <template id="portal_my_books" name="Books" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'books'" t-attf-class="breadcrumb-item #{'active ' if not books else ''}">
+                <a t-if="books" t-attf-href="/my/books?{{ keep_query() }}">Books</a>
+                <t t-else="">Books</t>
+            </li>
+        </xpath>
     </template>
-<!--    <template id="portal_my_quotations" name="My Quotations">-->
-<!--        <t t-call="portal.portal_layout">-->
-<!--            <t t-set="breadcrumbs_searchbar" t-value="True"/>-->
+    <template id="portal_my_home_book_donation" name="Book Donation"
+              customize_show="True" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
 
-<!--            <t t-call="portal.portal_searchbar">-->
-<!--                <t t-set="title">Quotations</t>-->
-<!--            </t>-->
-<!--            <div t-if="not quotations" class="alert alert-warning" role="alert">-->
-<!--                There are currently no quotations for your account.-->
-<!--            </div>-->
-<!--            <t t-if="quotations" t-call="portal.portal_table">-->
-<!--                <thead>-->
-<!--                    <tr class="active">-->
-<!--                        <th>Quotation #</th>-->
-<!--                        <th class="text-end">Quotation Date</th>-->
-<!--                        <th class="text-end">Valid Until</th>-->
-<!--                        <th class="text-center"/>-->
-<!--                        <th class="text-end">Total</th>-->
-<!--                    </tr>-->
-<!--                </thead>-->
-<!--                <t t-foreach="quotations" t-as="quotation">-->
-<!--                    <tr>-->
-<!--                        <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>-->
-<!--                        <td class="text-end"><span t-field="quotation.date_order"/></td>-->
-<!--                        <td class="text-end"><span t-field="quotation.validity_date"/></td>-->
-<!--                    -->
-<!--                        <td class="text-end">-->
-<!--                            <span t-field="quotation.amount_total"/>-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                </t>-->
-<!--            </t>-->
-<!--        </t>-->
-<!--    </template>-->
+            <t t-set="portal_client_category_enable" t-value="True"/>
+
+
+        </xpath>
+        <div id="portal_client_category" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/sale/static/src/img/bag.svg'"/>
+                <t t-set="title">Book Donation Details</t>
+                <t t-set="text">Donate more Books</t>
+                <t t-set="url" t-value="'/my/books'"/>
+                <t t-set="placeholder_count" t-value="'order_count'"/>
+            </t>
+        </div>
+
+
+    </template>
+    <template id="portal_page_template" name="My Books">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Books</t>
+            </t>
+                        <div t-if="not books" class="alert alert-warning" role="alert">
+                            There are currently no book donations for your account.
+                        </div>
+            <t t-if="books" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+
+                        <th class="text-left">Book Name</th>
+                        <th class="text-center">Author</th>
+                        <th class="text-end">Description</th>
+
+                    </tr>
+                </thead>
+                <t t-foreach="books" t-as="book">
+                    <tr>
+                        <td>
+                            <span t-field="book.book_name"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="book.authors_id.author_name"/>
+                        </td>
+                        <td class="text-end">
+                            <span t-field="book.description"/>
+                        </td>
+
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
 
 </odoo>

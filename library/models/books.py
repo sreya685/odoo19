@@ -33,6 +33,7 @@ class Books(models.Model):
     )
     user_id = fields.Many2one('res.users',default=lambda self: self.env.user)
     user_name = fields.Char(related='user_id.name')
+    book_image = fields.One2many('book.image','images')
 
      # to create sequence to isbn
     def create(self,vals):

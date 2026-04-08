@@ -89,6 +89,15 @@
                                 <field name="description"/>
                             </group>
                         </page>
+<!--                        <page name="book image">-->
+<!--                            <group>-->
+<!--                                <field name="book_image">-->
+<!--                                <list editable="bottom">-->
+<!--                                    <field name="images" widget="image"/>-->
+<!--                                </list>-->
+<!--                                </field>-->
+<!--                            </group>-->
+<!--                        </page>-->
                     </notebook>
                 </sheet>
             </form>
