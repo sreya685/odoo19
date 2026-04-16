@@ -16,6 +16,8 @@
     'data':[
        'security/library_security.xml',
        'security/ir.model.access.csv',
+       'views/snippets/best_seller_view.xml',
+       'views/snippets/snippets.xml',
        'data/penalty.xml',
        'data/remainder_mail_template.xml',
        'data/cron_remainder_template.xml',
@@ -23,7 +25,6 @@
        'data/sequence.xml',
        'reports/book_borrow_report.xml',
        'views/customer_portal_views.xml',
-       # 'views/portal_page.xml',
        'views/donation_form.xml',
        'views/account_move_view.xml',
        'wizard/recommendation_view.xml',
@@ -47,7 +48,11 @@
         'web.assets_backend': [
             'library/static/src/js/action_manager.js',
 
-        ]
+        ],
+       'web.assets_frontend': [
+           'library/static/src/xml/best_sellers_snippet.xml',
+           'library/static/src/js/best_seller_books.js',
+        ],
     },
     'installable':True,
     'application': True

@@ -23,8 +23,7 @@ access_report_wizard,access.report.wizard.user,model_report_wizard,library.libra
 access_report_wizard,access.report.wizard,model_report_wizard,library.library_group_manager,1,1,1,1
 access_xlsx_report_wizard,access.xlsx.report.wizard,model_xlsx_report_wizard,library.library_group_user,1,1,1,0
 access_xlsx_report_wizard,access.xlsx.report.wizard,model_xlsx_report_wizard,library.library_group_manager,1,1,1,1
-access_book_image,access.book.image,model_book_image,library.library_group_user,1,1,1,0
-access_book_image,access.book.image,model_book_image,library.library_group_manager,1,1,1,1
+
 
 
 

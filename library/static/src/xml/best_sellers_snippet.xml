@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="library.best_books">
+        <section class="categories_section">
+            <div class="container">
+                <h3 class="section_heading">Trending Books</h3>
+                <div class="books_wrapper">
+                        <t t-foreach="result.books" t-as="bks" t-key="bks.id">
+                            <div class="books">
+                                <div class="img_wrapper">
+                                    <t t-if="bks.image_1920">
+                                        <img t-att-src="'data:image/png;base64,' + bks.image_1920"
+                                             class="img img-fluid rotate-center"
+                                             t-att-alt="bks.book_name or 'Book Image'"
+                                             loading="lazy"/>
+                                    </t>
+                                    <t t-else="">
+                                        <img src="/library/static/src/img/snippets/mulgudi days.jpeg"
+                                             class="img img-fluid rotate-center"
+                                             alt="Default Image"
+                                             loading="lazy"/>
+                                    </t>
+                                </div>
+                                <div class="type">
+                                    <t t-esc="bks.book_name"/>
+                                    <t t-esc="bks.price"/>
+
+                                </div>
+                            </div>
+                        </t>
+                </div>
+            </div>
+        </section>
+    </t>
+
+</templates>
+
+<!--<template id="best_seller_books_snippet" inherit_id="website.snippets"-->
+<!--              name="Best Sellers Snippet">-->
+<!--       <xpath expr="//snippets[@id='snippet_structure']" position="inside">-->
+<!--        <t t-snippet="library.best_books" string="Books" label="Dynamic Content" />-->
+
+
+
+<!--       </xpath>-->
+<!--    </template>-->
