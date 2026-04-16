@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_po_wizard" model="ir.actions.act_window">
+        <field name="name">PO Wizard</field>
+        <field name="res_model">wizard.po</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_wizard_po"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+    <record id="view_po_wizard" model="ir.ui.view">
+        <field name="name">wizard.po.form</field>
+        <field name="model">wizard.po</field>
+        <field name="arch" type="xml">
+            <form string="Price Wizard">
+
+                <sheet>
+                    <group>
+                        <field name="quantity"/>
+                    </group>
+                    <group>
+                        <field name="price"/>
+                    </group>
+
+
+                </sheet>
+                  <footer>
+                 <button name="confirm_wizard_button" type="object" class="oe_highlight" string="Confirm" />
+                    <button string="Discard" class="btn-secondary" special="cancel" data-hotkey="x" />
+                 </footer>
+
+
+            </form>
+        </field>
+    </record>
+</odoo>
